@@ -63,13 +63,9 @@ class BaseModel:
             new_dictionary: A dictionary that contains all keys/values of the instances.
         """
         #This creates a copy of the instance's dictionary
-        new_dictionary = self.__dict__.copy() 
+        new_dict = self.__dict__.copy() 
         # Convert datetime attributes to strings in ISO format.
-        new_dictionary['created_at'] = self.created_at.isoformat()
-        new_dictionary['updated_at'] = self.updated_at.isoformat()
-        new_dictionary['__class__'] = self.__class__.__name__ 
-        return new_dictionary # Returns the modified dictionary.
-
-
-
-   
+        new_dict['created_at'] = self.created_at.isoformat()
+        new_dict['updated_at'] = self.updated_at.isoformat()
+        new_dict['__class__'] = self.__class__.__name__ 
+        return new_dict # Returns the modified dictionary.
