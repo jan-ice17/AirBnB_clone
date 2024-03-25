@@ -79,7 +79,7 @@ class TestBaseModel(unittest.TestCase):
             'created_at': '2022-01-01T12:00:00.000000',
             'updated_at': '2022-01-01T12:00:00.000000',
             '__class__': 'BaseModel',
-            'extra_attribute': 'extra_value'  # Adding an extra attribute not in BaseModel
+            'extra_attribute': 'extra_value'  
         }
 
     def tearDown(self):
