@@ -27,19 +27,19 @@ class FileStorage:
         """ sets in __objects the obj with key <obj class name>.id
             all it does is to get the key of the form <obj class name>.id
         """
-        key = obj.__class__.__name__ + "." + str(obj.id)
+        key = "{}.{}".format(obj.__class__.__name__, obj.id)
         self.__objects[key] = obj
-    
+
     def save(self):
         """This serializes __objects to the JSON file (path: __file_path)"""
-        json_obj = {} #THis creates an empty dictionary
+        new_dict = {}
 
         """Next, fill dictionary with an __objects element"""
-        for key in self.__objects:
-            json_obj[key] = self.__objects[key].to_dict()
-        
-        with open(self.__file_path, 'w') as file:
-            json.dump(json_obj, file)
+        for key, value in self.__objects.items():
+            new_dict[key] = value.to_dict()
+        with open(self.__file_path, mode='w', encoding='utf-8') as file:
+            json.dump(new_dict, file)
+
     
     def reload(self):
         """THis deserializes the JSON file to __objects"""
@@ -51,3 +51,4 @@ class FileStorage:
                     self.__objects[key] = attr_value
         except FileNotFoundError:
             pass
+
