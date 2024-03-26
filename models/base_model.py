@@ -29,9 +29,11 @@ class BaseModel:
                     setattr(self, key, value)  # Set attribute name and value
             # Convert string datetime attributes to datetime objects
             if 'created_at' in kwargs:
-                self.created_at = datetime.strptime(kwargs['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
+                self.created_at = datetime.strptime
+                (kwargs['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
             if 'updated_at' in kwargs:
-                self.updated_at = datetime.strptime(kwargs['updated_at'], '%Y-%m-%dT%H:%M:%S.%f')
+                self.updated_at = datetime.strptime
+                (kwargs['updated_at'], '%Y-%m-%dT%H:%M:%S.%f')
         else:  # If kwargs is empty
             self.id = str(uuid.uuid4())  # Generate unique id
             self.created_at = datetime.now()  # Set created_at timestamp
