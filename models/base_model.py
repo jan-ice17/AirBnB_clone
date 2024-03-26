@@ -20,7 +20,8 @@ class BaseModel:
         Initializes a new instance of BaseModel.
         Args:
             *args: Variable length argument list (unused).
-            **kwargs: Arbitrary keyword arguments to handle dictionary representation.
+            **kwargs: Arbitrary keyword arguments to
+            handle dictionary representation.
         """
         if kwargs:  # If kwargs is not empty
             for key, value in kwargs.items():
@@ -28,9 +29,11 @@ class BaseModel:
                     setattr(self, key, value)  # Set attribute name and value
             # Convert string datetime attributes to datetime objects
             if 'created_at' in kwargs:
-                self.created_at = datetime.strptime(kwargs['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
+                self.created_at = datetime.strptime
+                (kwargs['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
             if 'updated_at' in kwargs:
-                self.updated_at = datetime.strptime(kwargs['updated_at'], '%Y-%m-%dT%H:%M:%S.%f')
+                self.updated_at = datetime.strptime
+                (kwargs['updated_at'], '%Y-%m-%dT%H:%M:%S.%f')
         else:  # If kwargs is empty
             self.id = str(uuid.uuid4())  # Generate unique id
             self.created_at = datetime.now()  # Set created_at timestamp
@@ -39,18 +42,17 @@ class BaseModel:
 
     def __str__(self):
         """
-        Provides a representation of the BaseModel instance in a specific format.
-        
+        Provides a repr of the BaseModel in specific format.
+
         Returns:
             str: The string representation of the instance.
         """
         class_name = self.__class__.__name__
         return "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
-    
 
     def save(self):
         self.updated_at = datetime.now()  # Updates the last updated time.
-    
+
     def new(self):
         self.updated_at = datetime.now()
         models.storage.save()
@@ -60,12 +62,13 @@ class BaseModel:
         THis will convert instance attributes to a dictionary.
 
         Returns:
-            new_dictionary: A dictionary that contains all keys/values of the instances.
+            new_dictionary: A dictionary
+            that contains all keys/values of the instances.
         """
-        #This creates a copy of the instance's dictionary
-        new_dict = self.__dict__.copy() 
+        # This creates a copy of the instance's dictionary
+        new_dict = self.__dict__.copy()
         # Convert datetime attributes to strings in ISO format.
         new_dict['created_at'] = self.created_at.isoformat()
         new_dict['updated_at'] = self.updated_at.isoformat()
-        new_dict['__class__'] = self.__class__.__name__ 
-        return new_dict # Returns the modified dictionary.
+        new_dict['__class__'] = self.__class__.__name__
+        return new_dict  # Returns the modified dictionary.
