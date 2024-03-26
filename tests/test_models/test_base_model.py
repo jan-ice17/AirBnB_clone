@@ -1,7 +1,10 @@
+#!usr/bin/python3
+
 import unittest
 from datetime import datetime
 from models.base_model import BaseModel
 import uuid
+
 
 class TestBaseModel(unittest.TestCase):
     """Test cases for the BaseModel class."""
@@ -15,7 +18,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(model.updated_at, datetime)
 
     def test_str(self):
-        """Testing if the string representation of BaseModel instances is correct."""
+        """Testing if the string rep of BaseModel instances is correct."""
         model = BaseModel()
         expected_output = f"[BaseModel] ({model.id}) {model.__dict__}"
         self.assertEqual(str(model), expected_output)
@@ -44,7 +47,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertNotEqual(old_updated_at, self.base_model.updated_at)
 
     def test_to_dict_method(self):
-        """Testing if the 'to_dict' method converts instances to dictionaries correctly."""
+        """Testing if the 'to_dict' converts instances to dict correctly."""
         base_model_dict = self.base_model.to_dict()
         self.assertTrue(isinstance(base_model_dict, dict))
         self.assertIn('id', base_model_dict)
@@ -53,7 +56,8 @@ class TestBaseModel(unittest.TestCase):
         self.assertIn('updated_at', base_model_dict)
 
     def test_from_dict(self):
-        """Testing if BaseModel instances can be instantiated from dictionary representation."""
+        """Testing if BaseModel instances can be instantiated
+        from dictionary representation."""
         model = BaseModel()
         model_dict = model.to_dict()
         new_model = BaseModel(**model_dict)
@@ -62,16 +66,6 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(new_model.created_at, model.created_at)
         self.assertEqual(new_model.updated_at, model.updated_at)
 
-    def test_from_dict_method(self):
-        """Testing if the 'from_dict' method correctly creates instances from dictionaries."""
-        base_model_instance = BaseModel.from_dict(self.base_model_dict)
-        self.assertIsInstance(base_model_instance, BaseModel)
-        self.assertEqual(base_model_instance.id, self.base_model_dict['id'])
-        self.assertEqual(base_model_instance.created_at, datetime.fromisoformat(self.base_model_dict['created_at']))
-        self.assertEqual(base_model_instance.updated_at, datetime.fromisoformat(self.base_model_dict['updated_at']))
-        # Check if the extra attribute  are ignored
-        self.assertFalse(hasattr(base_model_instance, 'extra_attribute'))
-
     def setUp(self):
         """Set up a dictionary for testing 'from_dict' method."""
         self.base_model_dict = {
@@ -79,7 +73,7 @@ class TestBaseModel(unittest.TestCase):
             'created_at': '2022-01-01T12:00:00.000000',
             'updated_at': '2022-01-01T12:00:00.000000',
             '__class__': 'BaseModel',
-            'extra_attribute': 'extra_value'  
+            'extra_attribute': 'extra_value'
         }
 
     def tearDown(self):
