@@ -4,6 +4,7 @@
 import unittest
 from models.state import State
 
+
 class TestState(unittest.TestCase):
     """Testing for the state class."""
     def test_initialization(self):
@@ -11,6 +12,7 @@ class TestState(unittest.TestCase):
         state = State()
         self.assertIsInstance(state, State)
         self.assertEqual(state.name, "")
+
 
 if __name__ == "__main__":
     unittest.main()
