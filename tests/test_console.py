@@ -17,9 +17,6 @@ class test_console(unittest.TestCase):
         self.backup = sys.stdout
         self.get_output = StringIO()
         sys.stdout = self.get_output
-    def setUp2(self):
-        """Set up the HBNBCommand instance."""
-        self.console = HBNBCommand()
 
     def test_prompt(self):
         """Test the prompt setup."""
@@ -37,7 +34,6 @@ class test_console(unittest.TestCase):
     def create(self):
         """This create an instance of the HBNBCommand"""
         return HBNBCommand
-
     
     def test_EOF(self):
         """This Checks for the end of a file (EOF)"""
@@ -124,6 +120,10 @@ class test_console(unittest.TestCase):
         console.onecmd("create Menor")
         x = (self.get_output.getvalue())
         self.assertEqual("** class doesn't exist **\n", x)
+
+    def test_quit_present(self):
+        console = HBNBCommand()
+        self.assertTrue(hasattr(console, 'do_quit'))
 
 if __name__ == '__main__':
     unittest.main()      
